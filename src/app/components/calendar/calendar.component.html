@@ -1,0 +1,30 @@
+<!-- <ng-container *ngFor="let date of bufferCalendarData; let i=index">
+      <div class="tile-container">
+            {{date.date}}
+      </div>
+</ng-container> -->
+<div class="container">
+      <div class="row">
+            <div class="col d-flex justify-content-center">
+                  <p>{{currentMonth}}</p>
+                  <button (click)="decreaseCurrentMonth()">Prev</button>
+                  <button (click)="increaseCurrentMonth()">next</button>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col p-0">Monday</div>
+            <div class="col p-0">Tuesday</div>
+            <div class="col p-0">Wednesday</div>
+            <div class="col p-0">Thursday</div>
+            <div class="col p-0">Friday</div>
+            <div class="col p-0">Saturday</div>
+            <div class="col p-0">Sunday</div>
+      </div>
+      <div *ngFor="let week of displayCalendarData; let i=index" class="row">
+            <div *ngFor="let date of week.weekData" class="col p-0">
+                  <div class="tile-container">
+                        {{date.date}}
+                  </div>
+            </div>
+      </div>
+</div>
