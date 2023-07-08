@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs'; 
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-calendar',
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs';
 export class CalendarComponent implements OnInit {
 
   @Input() calendarData: Array<any> = [];
+  @ViewChild('modalRef') modalRef: ModalComponent;
 
   constructor() { }
 
@@ -46,98 +48,83 @@ export class CalendarComponent implements OnInit {
     this.filterDatesByMonth(this.currentMonth)
   }
 
-  filterDatesByMonth(currentMonth:any){
-    this.bufferCalendarData = this.calendarData.filter((date)=>{
-      return date.month===currentMonth
-    })
+  // filterDatesByMonth(currentMonth:any){
+  //   this.bufferCalendarData = this.calendarData.filter((date)=>{
+  //     return date.month===currentMonth
+  //   })
 
+  //   let weekIdx = 0;
+  //   let weekData: any = [];
+
+  //   console.log("bufferCalendarData", this.bufferCalendarData)
+  
+  //   this.bufferCalendarData = this.bufferCalendarData.map((date:any, index:number, bufferCalendarData:any)=>{
+  //     if(date.day !=0){
+  //       if(weekIdx==0 && index==0){
+  //         for(let k=0; k<date.day; k++){
+  //           weekData.push({})
+  //         }
+  //       }
+  //       weekData.push(date)
+  //       if(bufferCalendarData.length - 1 == index){
+  //         for(let l=date.day; l<6; l++){
+  //           weekData.push({})
+  //         }
+  //         this.displayCalendarData[weekIdx].weekData = weekData;
+  //       }
+  //     }else{
+  //       this.displayCalendarData[weekIdx].weekData = weekData;
+  //       weekIdx = weekIdx + 1;
+  //       weekData = [];
+  //       weekData.push(date)
+  //     }
+  //   })
+
+  //   console.log('displayCalendarData', this.displayCalendarData)
+  // }
+
+  filterDatesByMonth(currentMonth: any) {
+    this.bufferCalendarData = this.calendarData.filter((date) => {
+      return date.month === currentMonth;
+    });
+  
     let weekIdx = 0;
     let weekData: any = [];
   
-    this.bufferCalendarData = this.bufferCalendarData.map((date:any, index:number, bufferCalendarData:any)=>{
-      // if(date.day != 0){
-      //   if(weekIdx==0 && index==0){
-      //     for(let k=0; k<date.day; k++){
-      //       weekData.push({})
-      //     }
-      //   }
-      //   weekData.push(date)
-      //   if(weekData==0 && date.day==6){
-      //     weekIdx = weekIdx + 1;
-      //   }
-      // }else{
-      //   if(weekIdx == 0){
-      //     weekData.push(date)
-      //   }else{
-      //     this.displayCalendarData[weekIdx].weekData = weekData;
-      //     weekIdx = weekIdx + 1;
-      //     weekData = [];
-      //     weekData.push(date)
-      //   }
-      // }
-
-
-
-      // const weekData = {
-        
-      // }
-      // return weekData
-      // let weekData: any = [];
-      // weekData = [...weekData, date]
-      // this.displayCalendarData[index].weekData.push(date) 
-
-      // this.displayCalendarData[index].weekData = this.bufferCalendarData.filter((date)=>{
-      //   date.day > 3
-      // })     
-
-
-
-      // if(weekIdx===0){
-      //   weekData.push(date)
-      //   if(date.day===6){
-      //     this.displayCalendarData[weekIdx].weekData = weekData;
-      //     weekIdx = weekIdx + 1;
-      //     weekData = [];
-      //   }
-      // }else{
-
-
-
-        if(date.day !=0){
-          if(weekIdx==0 && index==0){
-            for(let k=0; k<date.day; k++){
-              weekData.push({})
+    console.log("bufferCalendarData", this.bufferCalendarData);
+  
+    this.bufferCalendarData = this.bufferCalendarData.map(
+      (date: any, index: number, bufferCalendarData: any) => {
+        if (date.day !== 0) {
+          if (weekIdx === 0 && index === 0) {
+            for (let k = 0; k < date.day; k++) {
+              weekData.push({});
             }
           }
-          weekData.push(date)
-        }else{
-          // if(weekIdx==0){
-          //   if(date.dat !=6){
-          //     weekData.push(date);
-          //   }
-          //   if(date.day==6){
-          //     weekData.push(date);
-          //     this.displayCalendarData[weekIdx] = weekData
-          //   }
-          // }
-          // else{
+          weekData.push(date);
+          if (bufferCalendarData.length - 1 === index) {
+            for (let l = date.day; l < 6; l++) {
+              weekData.push({});
+            }
+            this.displayCalendarData[weekIdx].weekData = weekData;
+          }
+        } else {
+          if (weekData.length > 0) {
             this.displayCalendarData[weekIdx].weekData = weekData;
             weekIdx = weekIdx + 1;
             weekData = [];
-            weekData.push(date)
-          // }
+          }
+          weekData.push(date);
         }
+      }
+    );
+  
+    console.log("displayCalendarData", this.displayCalendarData);
+  }
+  
 
-
-
-      // }
-
-    })
-
-    console.log("AAAAAAAAAA", this.displayCalendarData)
-
-
-    // this.displayCalendarData[]
+  openToDoModal = () =>{
+    this.modalRef.showModal()
   }
 
   // ngOnChanges(){

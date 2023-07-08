@@ -6,7 +6,7 @@
 <div class="container">
       <div class="row">
             <div class="col d-flex justify-content-center">
-                  <p>{{currentMonth}}</p>
+                  <p>{{currentMonth + 1}}</p>
                   <button (click)="decreaseCurrentMonth()">Prev</button>
                   <button (click)="increaseCurrentMonth()">next</button>
             </div>
@@ -22,9 +22,10 @@
       </div>
       <div *ngFor="let week of displayCalendarData; let i=index" class="row">
             <div *ngFor="let date of week.weekData" class="col p-0">
-                  <div class="tile-container">
+                  <div class="tile-container" (click)="openToDoModal()">
                         {{date.date}}
                   </div>
             </div>
       </div>
 </div>
+<app-modal #modalRef></app-modal>
