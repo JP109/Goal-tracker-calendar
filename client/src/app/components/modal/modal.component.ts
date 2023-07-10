@@ -23,4 +23,8 @@ export class ModalComponent implements OnInit {
     this.isOpen = false;
   }
 
+  addTodo(){
+    
+  }
+
 }

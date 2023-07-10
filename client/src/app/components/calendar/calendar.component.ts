@@ -15,6 +15,7 @@ export class CalendarComponent implements OnInit {
   constructor() { }
 
   currentMonth = 0;
+  currentMonthText = '';
   bufferCalendarData:any = [];
   displayCalendarData:any = [
     {weekData: []},
@@ -24,13 +25,33 @@ export class CalendarComponent implements OnInit {
     {weekData: []},
     {weekData: []},
     {weekData: []},
+  ];
+
+  monthList = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
   ]
+
+  displayMonth(){
+    this.currentMonthText = this.monthList[this.currentMonth];
+  }
   
 
   increaseCurrentMonth(){
     this.currentMonth = this.currentMonth + 1;
 
     this.filterDatesByMonth(this.currentMonth);
+    this.displayMonth();
     console.log("CAL DATA", this.bufferCalendarData)
   }
 
@@ -38,6 +59,7 @@ export class CalendarComponent implements OnInit {
     this.currentMonth = this.currentMonth - 1;
 
     this.filterDatesByMonth(this.currentMonth);
+    this.displayMonth();
     console.log("CAL DATA", this.bufferCalendarData)
   }
 
@@ -46,6 +68,8 @@ export class CalendarComponent implements OnInit {
     this.bufferCalendarData = this.calendarData;
     
     this.filterDatesByMonth(this.currentMonth)
+
+    this.displayMonth()
   }
 
   // filterDatesByMonth(currentMonth:any){
@@ -127,10 +151,8 @@ export class CalendarComponent implements OnInit {
     this.modalRef.showModal()
   }
 
-  // ngOnChanges(){
-  //   this.calendarData = this.calendarData.filter((date)=>{
-  //     return date.month===this.currentMonth
-  //   })
-  // }
+  ngOnChanges(){
+    
+  }
 
 }
