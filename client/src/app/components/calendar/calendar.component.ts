@@ -46,7 +46,6 @@ export class CalendarComponent implements OnInit {
     this.currentMonthText = this.monthList[this.currentMonth];
   }
   
-
   increaseCurrentMonth(){
     this.currentMonth = this.currentMonth + 1;
 
@@ -72,80 +71,44 @@ export class CalendarComponent implements OnInit {
     this.displayMonth()
   }
 
-  // filterDatesByMonth(currentMonth:any){
-  //   this.bufferCalendarData = this.calendarData.filter((date)=>{
-  //     return date.month===currentMonth
-  //   })
-
-  //   let weekIdx = 0;
-  //   let weekData: any = [];
-
-  //   console.log("bufferCalendarData", this.bufferCalendarData)
-  
-  //   this.bufferCalendarData = this.bufferCalendarData.map((date:any, index:number, bufferCalendarData:any)=>{
-  //     if(date.day !=0){
-  //       if(weekIdx==0 && index==0){
-  //         for(let k=0; k<date.day; k++){
-  //           weekData.push({})
-  //         }
-  //       }
-  //       weekData.push(date)
-  //       if(bufferCalendarData.length - 1 == index){
-  //         for(let l=date.day; l<6; l++){
-  //           weekData.push({})
-  //         }
-  //         this.displayCalendarData[weekIdx].weekData = weekData;
-  //       }
-  //     }else{
-  //       this.displayCalendarData[weekIdx].weekData = weekData;
-  //       weekIdx = weekIdx + 1;
-  //       weekData = [];
-  //       weekData.push(date)
-  //     }
-  //   })
-
-  //   console.log('displayCalendarData', this.displayCalendarData)
-  // }
-
-  filterDatesByMonth(currentMonth: any) {
+  filterDatesByMonth(currentMonth: any){
     this.bufferCalendarData = this.calendarData.filter((date) => {
       return date.month === currentMonth;
     });
-  
-    let weekIdx = 0;
-    let weekData: any = [];
-  
-    console.log("bufferCalendarData", this.bufferCalendarData);
-  
-    this.bufferCalendarData = this.bufferCalendarData.map(
-      (date: any, index: number, bufferCalendarData: any) => {
-        if (date.day !== 0) {
-          if (weekIdx === 0 && index === 0) {
-            for (let k = 0; k < date.day; k++) {
-              weekData.push({});
-            }
-          }
-          weekData.push(date);
-          if (bufferCalendarData.length - 1 === index) {
-            for (let l = date.day; l < 6; l++) {
-              weekData.push({});
-            }
-            this.displayCalendarData[weekIdx].weekData = weekData;
-          }
-        } else {
-          if (weekData.length > 0) {
-            this.displayCalendarData[weekIdx].weekData = weekData;
-            weekIdx = weekIdx + 1;
-            weekData = [];
-          }
-          weekData.push(date);
-        }
+
+    this.displayCalendarData = [
+      {weekData: []},
+      {weekData: []},
+      {weekData: []},
+      {weekData: []},
+      {weekData: []},
+      {weekData: []},
+      {weekData: []},
+    ];
+
+    let startEmptyDates = []
+    let endEmptyDates = []
+
+    for(let l = this.bufferCalendarData[0].day; l < 6; l++){
+      startEmptyDates.push({});
+    }
+    this.bufferCalendarData = [...startEmptyDates, ...this.bufferCalendarData];
+
+    let endWeekDay = this.bufferCalendarData.length%7;
+
+    if(endWeekDay !=0){
+      for(let l = endWeekDay; l < 7; l++){
+        endEmptyDates.push({});
       }
-    );
-  
-    console.log("displayCalendarData", this.displayCalendarData);
+    }
+    this.bufferCalendarData = [...this.bufferCalendarData, ...endEmptyDates];
+
+    let weekId = 0;
+    for(let m=0; m<this.bufferCalendarData.length; m=m+7){
+      this.displayCalendarData[weekId].weekData = [...this.bufferCalendarData.slice(m, m+7)];
+      weekId = weekId + 1;
+    }
   }
-  
 
   openToDoModal = () =>{
     this.modalRef.showModal()
