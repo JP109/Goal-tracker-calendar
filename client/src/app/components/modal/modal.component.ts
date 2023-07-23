@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Todo } from '../todo.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-modal',
@@ -7,16 +9,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() toDoList = [];
+  // @Input() toDoList = [];
   @Input() date;
   isOpen: boolean = false;
 
   constructor() { }
 
-  todoList = [
-    {label:'Cat', text:'Lorem Ipsum...', id: 'Cat', value: 'Cat', checked: false, disabled: false}, 
-    {label:'Dog', text:'Lorem Ipsum...', id: 'Dog', value: 'Dog', checked: false, disabled: true}, 
-    {label:'Mouse', text:'Lorem Ipsum...', id: 'Mouse', value: 'Mouse', checked: true, disabled: false}
+  todoList: Todo[] = [
+    {title:'Cat', description:'Lorem Ipsum...', checked: false}, 
+    {title:'Dog', description:'Lorem Ipsum...', checked: false}, 
+    {title:'Mouse', description:'Lorem Ipsum...', checked: true}
   ];
   
   ngOnInit(): void {
@@ -30,12 +32,15 @@ export class ModalComponent implements OnInit {
     this.isOpen = false;
   }
 
-  addTodo(){
-    const todo = {
-      title: 'Dummy title',
-      description: 'Dummy description',
+  addTodo(todoForm: NgForm){
+    // console.log('todoForm', todoForm.value)
+    const todo: Todo = {
+      title: todoForm.value.title,
+      description: todoForm.value.description,
       checked: false
     }
+    this.todoList.push(todo);
+    // console.log(this.todoList, todo)
   }
 
 }
