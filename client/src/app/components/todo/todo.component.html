@@ -1,0 +1,17 @@
+<div class="option"
+      [class.option-disabled]="todoData.disabled || disabled"
+      [class.option-selected]="todoData.checked" 
+      [ngClass]="customClass"
+>
+      <input type="radio" 
+            name="singleSelect" 
+            [id]="todoData.id" 
+            [value]="todoData.value" 
+            [checked]="todoData.checked" 
+            [disabled]="todoData.disabled || disabled" 
+            class="option-icon" 
+            (change)="onChange($event)"
+            [ngClass]="customClass"
+      >
+      <label [for]="todoData.id" class="todoData-label">{{todoData.label}} : {{todoData.text}}</label><br>
+</div>

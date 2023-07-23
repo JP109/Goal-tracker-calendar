@@ -42,6 +42,8 @@ export class CalendarComponent implements OnInit {
     'December'
   ]
 
+  selectedDate;
+
   displayMonth(){
     this.currentMonthText = this.monthList[this.currentMonth];
   }
@@ -110,7 +112,8 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  openToDoModal = () =>{
+  openToDoModal = (date) =>{
+    this.selectedDate = date;
     this.modalRef.showModal()
   }
 

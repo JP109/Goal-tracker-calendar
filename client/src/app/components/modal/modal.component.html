@@ -5,9 +5,10 @@
             </div>
             <div class="row">
                   <div class="col-8">
-                        <!-- <div class="" *ngFor="let toDo of toDoList">
-                              {{todo.description}}
-                        </div> -->
+                        <div class="" *ngFor="let todo of todoList">
+                              <app-todo [todoData]="todo"></app-todo>
+                        </div>
+                        {{date}}
                   </div>
                   <div class="col-4">
                         <div class="">

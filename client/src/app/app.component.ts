@@ -53,9 +53,10 @@ export class AppComponent {
       start: new Date(startDate),
       end: new Date(endDate)
     })
+    console.log("dateArray", dateArray)
 
     const sortedDateArray = dateArray.map((date, idx)=>{
-      const formattedDate = {date: date.getDate(), month: date.getMonth(), year: date.getFullYear(), day: date.getDay()}
+      const formattedDate = {date: date.getDate(), month: date.getMonth(), year: date.getFullYear(), day: date.getDay(), dateString: date.toDateString()}
       return formattedDate
     })
 
