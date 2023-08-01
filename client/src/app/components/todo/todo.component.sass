@@ -7,6 +7,7 @@
       margin-bottom: 20px
       display: flex
       align-items: center
+      justify-content: space-between
       transition: all 3s ease-out
       &-disabled
             background-color: grey
@@ -24,8 +25,27 @@
             font-weight: bold
             &:hover
                   cursor: pointer
+      button
+            font-size: 16px
+            font-weight: bold
+            color: #FFFFFF
+            background-color: #5995DA
+            border: none
+            border-radius: 3px
+            padding: 10px 40px
+            cursor: pointer
 
-input[type=radio]
+            &:hover 
+                  background-color: #040505
+
+            &:disabled
+                  background-color: #76AEED
+                  cursor: not-allowed
+
+            &:active 
+                  background-color: #407FC7
+
+input[type=checkbox]
       // background: url('./radio-button.png')
       width: 30px
       height: 30px

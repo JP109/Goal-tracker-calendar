@@ -49,23 +49,26 @@ export class CalendarComponent implements OnInit {
   }
   
   increaseCurrentMonth(){
-    this.currentMonth = this.currentMonth + 1;
-
-    this.filterDatesByMonth(this.currentMonth);
-    this.displayMonth();
-    console.log("CAL DATA", this.bufferCalendarData)
+    if(this.currentMonth <=11){
+      this.currentMonth = this.currentMonth + 1;
+  
+      this.filterDatesByMonth(this.currentMonth);
+      this.displayMonth();
+      console.log("CAL DATA", this.bufferCalendarData)  
+    }
   }
 
   decreaseCurrentMonth(){
-    this.currentMonth = this.currentMonth - 1;
-
-    this.filterDatesByMonth(this.currentMonth);
-    this.displayMonth();
-    console.log("CAL DATA", this.bufferCalendarData)
+    if(this.currentMonth >= 0){
+      this.currentMonth = this.currentMonth - 1;
+  
+      this.filterDatesByMonth(this.currentMonth);
+      this.displayMonth();
+      console.log("CAL DATA", this.bufferCalendarData)
+    }
   }
 
   ngOnInit(): void {
-    console.log('CalendarData', this.calendarData)
     this.bufferCalendarData = this.calendarData;
     
     this.filterDatesByMonth(this.currentMonth)
@@ -113,8 +116,12 @@ export class CalendarComponent implements OnInit {
   }
 
   openToDoModal = (date) =>{
+    if(date===undefined){
+      return
+    }
     this.selectedDate = date;
-    this.modalRef.showModal()
+    this.modalRef.showModal(date)
+    console.log('Type of date Cal:', typeof(date))
   }
 
   ngOnChanges(){

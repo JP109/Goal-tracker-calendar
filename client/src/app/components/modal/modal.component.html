@@ -1,17 +1,17 @@
 <ng-container *ngIf="isOpen">
-      <div class="modal-container">
+      <div class="modal-container p-3">
             <div class="d-flex justify-content-end">
                   <span class="button-close" (click)="hideModal()">Close</span>
             </div>
             <div class="row">
                   <div class="col-8">
-                        <p *ngIf="todoList.length < 1">No contacts available.</p>
+                        <p *ngIf="todoList.length < 1">No todos today.</p>
                         <div class="" *ngIf="todoList.length >= 1">
                               <div class="" *ngFor="let todo of todoList">
                                     <app-todo [todoData]="todo"></app-todo>
                               </div>
                         </div>
-                        {{date}}
+                        <!-- {{date}} -->
                   </div>
                   <div class="col-4">
                         <form (ngSubmit)="addTodo(f)" #f="ngForm">
@@ -21,9 +21,9 @@
                               </div>
                               <div class="form-row">
                                     <label for="description">Description</label>
-                                    <input type="text" id="description" name="description" ngModel required #description="ngModel">
+                                    <textarea type="text" id="description" name="description" ngModel required #description="ngModel"></textarea>
                               </div>
-                              <div class="form-row">
+                              <div class="form-row pt-3">
                                     <button type="submit" [disabled]="!f.valid">Add Todo</button>
                               </div>
                         </form>

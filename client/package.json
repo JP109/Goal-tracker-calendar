@@ -21,6 +21,7 @@
     "@angular/router": "~11.2.13",
     "bootstrap": "5.2.3",
     "date-fns": "^2.30.0",
+    "font-awesome": "^4.7.0",
     "moment": "^2.29.4",
     "ngx-bootstrap": "^10.2.0",
     "rxjs": "~6.6.0",

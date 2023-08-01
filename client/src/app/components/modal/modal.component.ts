@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Todo } from '../todo.model';
 import { NgForm } from '@angular/forms';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-modal',
@@ -9,23 +10,29 @@ import { NgForm } from '@angular/forms';
 })
 export class ModalComponent implements OnInit {
 
-  // @Input() toDoList = [];
-  @Input() date;
+  @Input() date: string = '';
+  todoList: any = [];
   isOpen: boolean = false;
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
-  todoList: Todo[] = [
-    {title:'Cat', description:'Lorem Ipsum...', checked: false}, 
-    {title:'Dog', description:'Lorem Ipsum...', checked: false}, 
-    {title:'Mouse', description:'Lorem Ipsum...', checked: true}
-  ];
-  
   ngOnInit(): void {
+    // this.todoList = this.todoService.getTodos();
+
+
+    // this.todoService.getTodos(this.date).subscribe(data => {
+    //   this.todoList = data['todos'];
+    // })
   }
 
-  showModal(){
+  showModal(currentDate){
+    this.todoList = [];
     this.isOpen = true;
+    let dateStringTrimmed = currentDate.replace(/\s/g,'')
+    console.log('Current date', this.date, currentDate)
+    this.todoService.getTodos(dateStringTrimmed).subscribe(data => {
+      this.todoList = data['todos'];
+    })
   }
 
   hideModal(){
@@ -37,10 +44,12 @@ export class ModalComponent implements OnInit {
     const todo: Todo = {
       title: todoForm.value.title,
       description: todoForm.value.description,
+      date: this.date,
       checked: false
     }
-    this.todoList.push(todo);
-    // console.log(this.todoList, todo)
+    console.log(todo)
+    // this.todoList.push(todo);
+    this.todoService.addTodo(todo);
   }
 
 }

@@ -3,15 +3,18 @@
       [class.option-selected]="todoData.checked" 
       [ngClass]="customClass"
 >
-      <input type="radio" 
-            name="singleSelect" 
-            [id]="todoData.id" 
-            [value]="todoData.value" 
-            [checked]="todoData.checked" 
-            [disabled]="todoData.disabled || disabled" 
-            class="option-icon" 
-            (change)="onChange($event)"
-            [ngClass]="customClass"
-      >
-      <label [for]="todoData.id" class="todoData-label">{{todoData.title}} : {{todoData.description}}</label><br>
+      <div class="d-flex align-items-center">
+            <input type="checkbox" 
+                  name="multiSelect" 
+                  [id]="todoData.id" 
+                  [value]="todoData.value" 
+                  [checked]="todoData.checked" 
+                  [disabled]="todoData.disabled || disabled" 
+                  class="option-icon" 
+                  (change)="onChange($event)"
+                  [ngClass]="customClass"
+            >
+            <label [for]="todoData.id" class="todoData-label">{{todoData.title}} : {{todoData.description}}</label>
+      </div>
+      <button><i class="fa fa-trash" aria-hidden="true"></i></button>
 </div>
