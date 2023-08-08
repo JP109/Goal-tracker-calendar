@@ -11,10 +11,13 @@
                   [checked]="todoData.checked" 
                   [disabled]="todoData.disabled || disabled" 
                   class="option-icon" 
-                  (change)="onChange($event)"
+                  (change)="checkTodo($event)"
                   [ngClass]="customClass"
             >
             <label [for]="todoData.id" class="todoData-label">{{todoData.title}} : {{todoData.description}}</label>
       </div>
-      <button><i class="fa fa-trash" aria-hidden="true"></i></button>
+      <div class="">
+            <!-- <button (click)="editTodo(todoData._id)"><i class="fa fa-edit" aria-hidden="true"></i></button> -->
+            <button (click)="deleteTodo(todoData._id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      </div>
 </div>

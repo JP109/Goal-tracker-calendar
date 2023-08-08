@@ -1,14 +1,16 @@
 <ng-container *ngIf="isOpen">
       <div class="modal-container p-3">
             <div class="d-flex justify-content-end">
-                  <span class="button-close" (click)="hideModal()">Close</span>
+                  <!-- <span class="button-close" (click)="hideModal()">Close</span> -->
+                  <button class="button-close" (click)="hideModal()"><i class="fa fa-close"></i></button>
             </div>
             <div class="row">
                   <div class="col-8">
                         <p *ngIf="todoList.length < 1">No todos today.</p>
                         <div class="" *ngIf="todoList.length >= 1">
                               <div class="" *ngFor="let todo of todoList">
-                                    <app-todo [todoData]="todo"></app-todo>
+                                    <!-- <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onEdit)="editTodo($event)" (onDelete)="deleteTodo($event)"></app-todo> -->
+                                    <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onDelete)="deleteTodo($event)"></app-todo>
                               </div>
                         </div>
                         <!-- {{date}} -->

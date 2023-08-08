@@ -1,24 +1,31 @@
 .tile-container
-      //width: 100px
-      height: 80px
-      background-color: #e3e3e3
-      border: 1px solid black
+      height: 100%
+      background-color: #ffffff
+      // border: 1px solid black
+      // border-radius: 30px
+
 
       cursor: pointer
+
+      
+
+      &:hover
+            background-color: #e3e3e3
+            animation: tilt-tile 0.2s forwards
 
 .calendar
       button
             font-size: 16px
             font-weight: bold
             color: #FFFFFF
-            background-color: #5995DA
+            background-color: #CEA2D7
             border: none
             border-radius: 3px
             padding: 10px 40px
             cursor: pointer
 
             &:hover 
-                  background-color: #040505
+                  background-color: #A348A6
 
             &:disabled
                   background-color: #76AEED
@@ -27,5 +34,25 @@
             &:active 
                   background-color: #407FC7
 
-      .controls
-            margin: 30px 0
+      &-controls
+            padding: 30px 0
+
+      &-dates
+            height: calc(100vh - 104px)
+            display: flex
+            flex-direction: column
+
+            border-radius: 30px
+
+      &-daterow
+            flex-grow: 1
+            border-radius: 30px
+
+@keyframes tilt-tile 
+      0%
+            // transform: rotateY(0deg)
+            transform: rotate(0deg)
+      100%
+            // transform: rotateY(55deg)
+            transform: rotate3d(1,0,0,50deg)
+

@@ -4,9 +4,9 @@
       </div>
 </ng-container> -->
 <div class="calendar container">
-      <div class="controls row d-flex justify-content-center">
+      <div class="calendar-controls row d-flex justify-content-center">
             <div class="col-6 d-flex justify-content-between">
-                  <button (click)="decreaseCurrentMonth()"><i class="fa fa-angle-right"></i></button>
+                  <button (click)="decreaseCurrentMonth()"><i class="fa fa-angle-left"></i></button>
                   <p>{{currentMonthText}}</p>
                   <button (click)="increaseCurrentMonth()"><i class="fa fa-angle-right"></i></button>
             </div>
@@ -20,10 +20,12 @@
             <div class="col p-0">Saturday</div>
             <div class="col p-0">Sunday</div>
       </div>
-      <div *ngFor="let week of displayCalendarData; let i=index" class="row">
-            <div *ngFor="let date of week.weekData" class="col p-0">
-                  <div class="tile-container" (click)="openToDoModal(date.dateString)">
-                        {{date.date}}
+      <div class="calendar-dates">
+            <div *ngFor="let week of displayCalendarData; let i=index" class="calendar-daterow row">
+                  <div *ngFor="let date of week.weekData" class="col p-0">
+                        <div class="tile-container" (click)="openToDoModal(date.dateString)">
+                              {{date.date}}
+                        </div>
                   </div>
             </div>
       </div>
