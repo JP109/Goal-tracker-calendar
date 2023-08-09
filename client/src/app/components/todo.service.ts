@@ -24,22 +24,22 @@ export class TodoService{
             // return this.http.get("http://localhost:3000/api/todos", {params: queryParams})
             const params = new HttpParams()
                   .set('date', date);
-            return this.http.get("http://localhost:3000/api/todos/",{params: params})
+            return this.http.get("https://node-express-hosted-server-for-todo.onrender.com/api/todos/",{params: params})
       }
 
       addTodo = (todoObject) => {
-            return this.http.post("http://localhost:3000/api/todos", todoObject)
+            return this.http.post("https://node-express-hosted-server-for-todo.onrender.com/api/todos", todoObject)
       }
 
       editTodo = (todoObject) => {
-            return this.http.put("http://localhost:3000/api/todos", todoObject)
+            return this.http.put("https://node-express-hosted-server-for-todo.onrender.com/api/todos", todoObject)
       }
 
       checkTodo = (isChecked, id) => {
             // const checkParams = new HttpParams()
             //       .set('todoObject', 'BBBB');
             const body = { title: 'Angular PUT Request Example'};
-            return this.http.put(`http://localhost:3000/api/todos?id=${id}&checked=${isChecked}`, body)
+            return this.http.put(`https://node-express-hosted-server-for-todo.onrender.com/api/todos?id=${id}&checked=${isChecked}`, body)
       }
 
       deleteTodo(todoId: string) {
@@ -51,6 +51,6 @@ export class TodoService{
             // });
             const params = new HttpParams()
                   .set('todoId', todoId);
-            return this.http.delete("http://localhost:3000/api/todos/", {params: params})
+            return this.http.delete("https://node-express-hosted-server-for-todo.onrender.com/api/todos/", {params: params})
       }
 }
