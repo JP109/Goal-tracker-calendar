@@ -42,12 +42,22 @@ app.post('/api/todos', (req, res, next)=>{
 })
 
 app.get("/api/todos", (req, res, next) => {
-      Todo.find({date:req.query.date}).then(documents => {
-        res.status(200).json({
-          message: "Posts fetched successfully!",
-          todos: documents
-        });
-      });
+      if(req.query.date){
+            Todo.find({date:req.query.date}).then(documents => {
+              res.status(200).json({
+                message: "Posts fetched successfully!",
+                todos: documents
+              });
+            });           
+      }
+      else{
+            Todo.find().then(documents => {
+                  res.status(200).json({
+                    message: "Posts fetched successfully!",
+                    todos: documents
+                  });
+            });  
+      }
 });
 
 app.put("/api/todos", (req, res, next) => {
@@ -68,4 +78,6 @@ app.delete("/api/todos", (req, res, next) => {
       });
 });
 
-app.listen(3000);
+app.listen(3000, ()=>{
+      console.log('Started on port:', 3000)
+});
