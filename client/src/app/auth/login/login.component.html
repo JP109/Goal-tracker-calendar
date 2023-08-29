@@ -1,0 +1,57 @@
+<!-- <p>login works!</p>
+<form (ngSubmit)="login(f)" #f="ngForm">
+      <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" ngModel required #email="ngModel" placeholder="E-mail">
+      </div>
+      <div class="form-row">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" ngModel required #password="ngModel" placeholder="Password">
+      </div>
+      <div class="form-row pt-3">
+            <button type="submit" [disabled]="!f.valid">Login</button>
+      </div>
+</form> -->
+
+
+
+<div class="container">
+      <div class="login">
+  
+          <h1>LOGIN</h1>
+  
+          <form (ngSubmit)="onSubmitForm(loginForm)" #loginForm="ngForm">
+              <div class="form-row">
+                  <label for="username">Username</label>
+                  <input 
+                      type="email" 
+                      id="username" 
+                      name="username" 
+                      value="" 
+                      ngModel 
+                      required 
+                      #name="ngModel"
+                  />
+              </div>
+              <span *ngIf="!name.valid && name.touched" class="error-message">Please enter a name!</span>
+              <div class="form-row">
+                  <label for="password">Password</label>
+                  <input 
+                      type="password" 
+                      id="password" 
+                      name="password"  
+                      ngModel 
+                      required 
+                      #password="ngModel"
+                  />
+              </div>
+              <span *ngIf="!password.valid && password.touched" class="error-message">Please enter a valid password!</span>
+              <div class="form-row">
+                  <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+              </div>
+              <span *ngIf="incorrect_credentials_error" class="error-message">Incorrect credentials!</span>
+          </form>
+      </div>
+  </div>
+    
+    

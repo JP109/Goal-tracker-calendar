@@ -1,0 +1,98 @@
+
+.container
+  height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+
+
+// .error-message
+//   min-width: 100%
+
+.login
+  display: flex
+  flex-direction: column
+  align-items: center
+  // min-height: 50vh;
+  // max-width: 50vw;
+  outline: 1px solid black
+  border-radius: 10px
+  padding: 10px
+
+// .form-row
+//         margin: 0.5rem;
+
+.form-row
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  flex-direction: column
+  flex-wrap: wrap
+  // width: 100%;
+
+  //input tag styling
+  & input[type='email']
+  & input[type='password']
+    background-color: #FFFFFF
+    border: 1px solid #D6D9DC
+    border-radius: 3px
+    max-width: 100%
+    padding: 7px
+    font-size: 14px
+
+    &.ng-invalid.ng-touched
+      border: 1px solid red
+      border-radius: 3px
+ 
+  & label 
+    margin-bottom: 15px
+
+  // Button styling
+  & button 
+    font-size: 16px
+    font-weight: bold
+    color: #FFFFFF
+    background-color: #5995DA
+    border: none
+    border-radius: 3px
+    padding: 10px 40px
+    margin-bottom: 40px
+    cursor: pointer
+    // width 100%
+
+    &:hover
+      background-color: #040505
+
+    &:disabled
+      background-color: #76AEED
+      cursor: not-allowed
+      
+    &:active 
+      background-color: #407FC7
+
+
+
+
+
+@media only screen and (min-width: 700px) 
+
+  .form-row 
+    flex-direction: row
+    align-items: flex-start
+    margin-top: 20px
+  
+  .form-row input[type='email'], .form-row input[type='password'] 
+    width: 250px
+    height: initial
+    margin-right: 20px
+  
+  .form-row label 
+    text-align: right
+    width: 120px
+    margin-top: 7px
+    padding-right: 20px
+
+
+
+
+

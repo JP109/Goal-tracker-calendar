@@ -1,0 +1,40 @@
+<div class="container">
+      <div class="login">
+  
+          <h1>SIGN UP</h1>
+  
+          <form (ngSubmit)="onSubmitForm(signupForm)" #signupForm="ngForm">
+              <div class="form-row">
+                  <label for="username">Username</label>
+                  <input 
+                      type="email" 
+                      id="username" 
+                      name="username" 
+                      value="" 
+                      ngModel 
+                      required 
+                      #name="ngModel"
+                  />
+              </div>
+              <span *ngIf="!name.valid && name.touched" class="error-message">Please enter a name!</span>
+              <div class="form-row">
+                  <label for="password">Password</label>
+                  <input 
+                      type="password" 
+                      id="password" 
+                      name="password"  
+                      ngModel 
+                      required 
+                      #password="ngModel"
+                  />
+              </div>
+              <span *ngIf="!password.valid && password.touched" class="error-message">Please enter a valid password!</span>
+              <div class="form-row">
+                  <button type="submit" [disabled]="!signupForm.valid">Submit</button>
+              </div>
+              <span *ngIf="incorrect_credentials_error" class="error-message">Incorrect credentials!</span>
+          </form>
+      </div>
+  </div>
+    
+    
