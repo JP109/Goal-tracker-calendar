@@ -7,7 +7,7 @@
             <div class="row">
                   <div class="col-8">
                         <p *ngIf="todoList.length < 1">No todos today.</p>
-                        <div class="" *ngIf="todoList.length >= 1">
+                        <div class="todo-list" *ngIf="todoList.length >= 1">
                               <div class="" *ngFor="let todo of todoList">
                                     <!-- <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onEdit)="editTodo($event)" (onDelete)="deleteTodo($event)"></app-todo> -->
                                     <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onDelete)="deleteTodo($event)"></app-todo>

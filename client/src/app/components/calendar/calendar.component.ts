@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs'; 
 import { ModalComponent } from '../modal/modal.component';
+import { TodoService } from '../todo.service';
+import { eachDayOfInterval } from 'date-fns'
 
 @Component({
   selector: 'app-calendar',
@@ -12,10 +14,11 @@ export class CalendarComponent implements OnInit {
   @Input() calendarData: Array<any> = [];
   @ViewChild('modalRef') modalRef: ModalComponent;
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   currentMonth = 0;
   currentMonthText = '';
+  allTodos = [];
   bufferCalendarData:any = [];
   displayCalendarData:any = [
     {weekData: []},
@@ -69,12 +72,60 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bufferCalendarData = this.calendarData;
+    // this.calendarData = this.getSortedDatesInRange(new Date(2023,0,1), new Date(2024,0,0));
+    // this.bufferCalendarData = this.calendarData;
     
-    this.filterDatesByMonth(this.currentMonth)
+    // this.filterDatesByMonth(this.currentMonth)
 
-    this.displayMonth()
+    // this.displayMonth()
+
+    this.todoService.getAllTodos().subscribe(allTodos => {
+      // console.log('All todos', allTodos)
+      this.allTodos = allTodos['todos'];
+      this.calendarData = this.getSortedDatesInRange(new Date(2023,0,1), new Date(2024,0,0));
+      this.bufferCalendarData = this.calendarData;
+      
+      this.filterDatesByMonth(this.currentMonth)
+  
+      this.displayMonth()
+      console.log('All todos', this.allTodos)
+      console.log('DCD', this.displayCalendarData)
+    })
+
   }
+
+  getSortedDatesInRange(startDate: Date, endDate: Date) {
+    const dateArray = eachDayOfInterval({
+      start: new Date(startDate),
+      end: new Date(endDate)
+    })
+
+    const sortedDateArray = dateArray.map((date, idx)=>{
+      let dateStr = date.toDateString().replace(/\s/g,'')
+      const formattedDate = {
+        date: date.getDate(), 
+        month: date.getMonth(), 
+        year: date.getFullYear(), 
+        day: date.getDay(), 
+        dateString: date.toDateString(),
+        // todos: this.allTodos
+        todos: this.allTodos.filter((todo)=>{
+          return todo.date == dateStr;
+        })
+        // todos: this.allTodos.map((todo)=>{
+        //   if(todo.date === dateStr){
+        //     return todo
+        //   }else{
+        //     return null
+        //   }
+        // })
+          //console.log(todo.date, date.toDateString().replace(/\s/g,''))
+      }
+      return formattedDate
+    })
+
+    return sortedDateArray
+  } 
 
   filterDatesByMonth(currentMonth: any){
     this.bufferCalendarData = this.calendarData.filter((date) => {
@@ -95,7 +146,7 @@ export class CalendarComponent implements OnInit {
     let endEmptyDates = []
 
     for(let l = this.bufferCalendarData[0].day; l < 6; l++){
-      startEmptyDates.push({});
+      startEmptyDates.push({'isEmpty': true});
     }
     this.bufferCalendarData = [...startEmptyDates, ...this.bufferCalendarData];
 
@@ -103,10 +154,12 @@ export class CalendarComponent implements OnInit {
 
     if(endWeekDay !=0){
       for(let l = endWeekDay; l < 7; l++){
-        endEmptyDates.push({});
+        endEmptyDates.push({'isEmpty': true});
       }
     }
     this.bufferCalendarData = [...this.bufferCalendarData, ...endEmptyDates];
+
+    console.log('BCD', this.bufferCalendarData)
 
     let weekId = 0;
     for(let m=0; m<this.bufferCalendarData.length; m=m+7){

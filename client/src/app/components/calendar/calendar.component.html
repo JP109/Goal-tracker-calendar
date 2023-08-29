@@ -22,9 +22,17 @@
       </div>
       <div class="calendar-dates">
             <div *ngFor="let week of displayCalendarData; let i=index" class="calendar-daterow row">
-                  <div *ngFor="let date of week.weekData" class="col p-0">
-                        <div class="tile-container" (click)="openToDoModal(date.dateString)">
-                              {{date.date}}
+                  <div *ngFor="let date of week.weekData" class="col p-0 m-1">
+                        <div class="tile-container" [ngClass]="{'tile-container':!date.isEmpty, 'tile-container-empty': date.isEmpty}" (click)="openToDoModal(date.dateString)">
+                              <div class="tile-date">
+                                    {{date.date}}
+                              </div>
+                              <div class="tile-todos">
+                                    <ng-container *ngIf="date.todos && date.todos.length > 0">
+                                          <i class="fa fa-solid fa-check" aria-hidden="true"></i>
+                                          {{date.todos?date.todos.length:''}}
+                                    </ng-container>
+                              </div>
                         </div>
                   </div>
             </div>

@@ -24,7 +24,11 @@ export class TodoService{
             // return this.http.get("http://localhost:3000/api/todos", {params: queryParams})
             const params = new HttpParams()
                   .set('date', date);
-            return this.http.get("https://node-express-hosted-server-for-todo.onrender.com/api/todos/",{params: params})
+            return this.http.get("https://node-express-hosted-server-for-todo.onrender.com/api/todos",{params: params})
+      }
+      
+      getAllTodos = () => {
+            return this.http.get("https://node-express-hosted-server-for-todo.onrender.com/api/todos")
       }
 
       addTodo = (todoObject) => {
