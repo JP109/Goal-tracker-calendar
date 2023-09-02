@@ -4,7 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Todo = require('./models/todo');
+// const Todo = require('./models/todo');
+
+const todoRoutes = require("./routes/todo");
+const userRoutes = require("./routes/user");
 
 const app = express();
 
@@ -22,61 +25,64 @@ app.use((req, res, next) => {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Access-Control-Allow-Credentials", "true");
       res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE");
-      res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+      res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
       next();
 });
 
-app.post('/api/todos', (req, res, next)=>{
-      const todo = new Todo({
-            title: req.body.title,
-            description: req.body.description,
-            date: req.body.date.replace(/\s/g,''),
-            checked: req.body.checked
-      });
-      todo.save().then(createdPost => {
-            res.status(201).json({
-                  message: 'ToDo added successfully!',
-                  todoId: createdPost._id
-            })
-      });
-})
+// app.post('/api/todos', (req, res, next)=>{
+//       const todo = new Todo({
+//             title: req.body.title,
+//             description: req.body.description,
+//             date: req.body.date.replace(/\s/g,''),
+//             checked: req.body.checked
+//       });
+//       todo.save().then(createdPost => {
+//             res.status(201).json({
+//                   message: 'ToDo added successfully!',
+//                   todoId: createdPost._id
+//             })
+//       });
+// })
 
-app.get("/api/todos", (req, res, next) => {
-      if(req.query.date){
-            Todo.find({date:req.query.date}).then(documents => {
-              res.status(200).json({
-                message: "Posts fetched successfully!",
-                todos: documents
-              });
-            });           
-      }
-      else{
-            Todo.find().then(documents => {
-                  res.status(200).json({
-                    message: "Posts fetched successfully!",
-                    todos: documents
-                  });
-            });  
-      }
-});
+// app.get("/api/todos", (req, res, next) => {
+//       if(req.query.date){
+//             Todo.find({date:req.query.date}).then(documents => {
+//               res.status(200).json({
+//                 message: "Posts fetched successfully!",
+//                 todos: documents
+//               });
+//             });           
+//       }
+//       else{
+//             Todo.find().then(documents => {
+//                   res.status(200).json({
+//                     message: "Posts fetched successfully!",
+//                     todos: documents
+//                   });
+//             });  
+//       }
+// });
 
-app.put("/api/todos", (req, res, next) => {
-      const checkStatus = req.query.checked === 'true'? true : false;
-            Todo.findByIdAndUpdate({_id: req.query.id}, {
-                  checked: checkStatus,
-            }).then(resp=>{
-                  res.status(200).json({
-                        message: 'Object updated successfully'
-                  })
-            });
-})
+// app.put("/api/todos", (req, res, next) => {
+//       const checkStatus = req.query.checked === 'true'? true : false;
+//             Todo.findByIdAndUpdate({_id: req.query.id}, {
+//                   checked: checkStatus,
+//             }).then(resp=>{
+//                   res.status(200).json({
+//                         message: 'Object updated successfully'
+//                   })
+//             });
+// })
 
-app.delete("/api/todos", (req, res, next) => {
-      Todo.deleteOne({ _id: req.query.todoId }).then(result => {
-        console.log(result);
-        res.status(200).json({ message: "Todo deleted!" });
-      });
-});
+// app.delete("/api/todos", (req, res, next) => {
+//       Todo.deleteOne({ _id: req.query.todoId }).then(result => {
+//         console.log(result);
+//         res.status(200).json({ message: "Todo deleted!" });
+//       });
+// });
+
+app.use("/api/todos", todoRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(3000, ()=>{
       console.log('Started on port:', 3000)
