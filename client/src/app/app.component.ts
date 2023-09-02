@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Moment } from 'moment';
 import { eachDayOfInterval } from 'date-fns'
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent {
 
   formattedDatesArray: any = [];
 
+  constructor(private authService: AuthService){}
+
   ngOnInit(){
     // this.formattedDatesArray = this.getSortedDatesInRange(new Date(2023,0,1), new Date(2024,0,0));
+    this.authService.autoAuthUser();
   }
 
   // getSortedDatesInRange(startDate: Date, endDate: Date) {

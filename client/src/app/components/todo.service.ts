@@ -3,16 +3,12 @@ import { Todo } from "./todo.model";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from 'rxjs/operators';
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({providedIn: 'root'})
 export class TodoService{
-      // private todoList: Todo[] = [];
-      // private todoList: Todo[] = [
-      //       {title:'Cat', description:'Lorem Ipsum...', checked: false}, 
-      //       {title:'Dog', description:'Lorem Ipsum...', checked: false}, 
-      //       {title:'Mouse', description:'Lorem Ipsum...', checked: true}
-      //     ];;
-      constructor(private http:HttpClient){}
+
+      constructor(private http:HttpClient, private authService:AuthService){}
 
       getTodos = (date) => {
             // return [...this.todoList]
@@ -28,11 +24,11 @@ export class TodoService{
       }
       
       getAllTodos = () => {
-            return this.http.get("https://node-express-hosted-server-for-todo.onrender.com/api/todos")
+            return this.http.get("http://localhost:3000/api/todos")
       }
 
       addTodo = (todoObject) => {
-            return this.http.post("https://node-express-hosted-server-for-todo.onrender.com/api/todos", todoObject)
+            return this.http.post("http://localhost:3000/api/todos", todoObject)
       }
 
       editTodo = (todoObject) => {

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   // constructor() { }
 
@@ -18,30 +21,35 @@ export class LoginComponent implements OnInit {
   user = {};
   incorrect_credentials_error = false;  
 
-  //Shortcut to inject a service and instantiate it at the same time
+  // userIsAuthenticated = false;
+  isLoading: boolean = false;
+
+  // private authListenerSubs: Subscription;
+
   constructor(
-    // private validationService: validationService, 
-    // private router: Router, 
-    // private authenticationService:authenticationService
+    private authService: AuthService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
-    // this.validationService.fetchData().subscribe(data=>{
-    //   this.valData = data;
-    // })
+    // this.authListenerSubs = this.authService
+    // .getAuthStatusListener()
+    // .subscribe(isAuthenticated => {
+    //   this.userIsAuthenticated = isAuthenticated; //Not really required for now
+    // });
+  }
+
+  ngOnDestroy(): void {
+    // this.authListenerSubs.unsubscribe();
   }
 
   onSubmitForm = (form: NgForm) => {
-    // if (this.valData.some(user => user.name === form.value.username && user.password === form.value.password)) {
-    //   this.authenticationService.authenticate();
-    //   localStorage.setItem(`${form.value.username}`,`${form.value.password}`)
-    //   this.router.navigate(["/"])
-    //   console.log("ACCESS GRANTED!")
-    // }
-    // else{
-    //   console.log("ACCESS DENIED!")
-    //   this.incorrect_credentials_error = true;
-    // }
+    console.log('form', form.value);
+    if(form.invalid){
+      return
+    }
+    this.isLoading = true;
+    this.authService.login(form.value.email, form.value.password);
   }
 
 }

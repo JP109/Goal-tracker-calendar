@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +15,8 @@ export class SignupComponent implements OnInit {
   // ngOnInit(): void {
   // }
 
+  isLoading: boolean = false;
+
   userName = "";
   password = "";
   user = {};
@@ -23,6 +27,8 @@ export class SignupComponent implements OnInit {
     // private validationService: validationService, 
     // private router: Router, 
     // private authenticationService:authenticationService
+    public authService: AuthService,
+    private router: Router
     ) {}
 
   ngOnInit(): void {
@@ -32,16 +38,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmitForm = (form: NgForm) => {
-    // if (this.valData.some(user => user.name === form.value.username && user.password === form.value.password)) {
-    //   this.authenticationService.authenticate();
-    //   localStorage.setItem(`${form.value.username}`,`${form.value.password}`)
-    //   this.router.navigate(["/"])
-    //   console.log("ACCESS GRANTED!")
-    // }
-    // else{
-    //   console.log("ACCESS DENIED!")
-    //   this.incorrect_credentials_error = true;
-    // }
+    if(form.invalid){
+      return;
+    }else{
+      this.isLoading = true;
+      this.authService.createUser(form.value.username, form.value.password);
+      this.router.navigate(['calendar']);
+    }
   }
 
 }

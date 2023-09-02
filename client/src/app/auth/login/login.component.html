@@ -15,25 +15,25 @@
 
 
 
-<div class="container">
+<div class="container" *ngIf="!isLoading">
       <div class="login">
   
           <h1>LOGIN</h1>
   
           <form (ngSubmit)="onSubmitForm(loginForm)" #loginForm="ngForm">
               <div class="form-row">
-                  <label for="username">Username</label>
+                  <label for="email">Email</label>
                   <input 
                       type="email" 
-                      id="username" 
-                      name="username" 
+                      id="email" 
+                      name="email" 
                       value="" 
                       ngModel 
                       required 
-                      #name="ngModel"
+                      #email="ngModel"
                   />
               </div>
-              <span *ngIf="!name.valid && name.touched" class="error-message">Please enter a name!</span>
+              <span *ngIf="!email.valid && email.touched" class="error-message">Please enter a name!</span>
               <div class="form-row">
                   <label for="password">Password</label>
                   <input 
@@ -52,6 +52,7 @@
               <span *ngIf="incorrect_credentials_error" class="error-message">Incorrect credentials!</span>
           </form>
       </div>
-  </div>
+</div>
+<div class="" *ngIf="isLoading">Loading...</div>
     
     

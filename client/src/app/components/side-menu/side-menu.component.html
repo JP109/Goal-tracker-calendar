@@ -1,0 +1,15 @@
+<!-- <p>side-menu works!</p> -->
+<button class="menu-button" (click)="toggleMenu($event)" *ngIf="!isMenuOpen">
+      <i class="fa fa-bars"></i>
+</button>
+<div class="side-menu" *ngIf="isMenuOpen">
+      <button class="menu-button" (click)="toggleMenu($event)" *ngIf="isMenuOpen">
+            <i class="fa fa-close"></i>
+      </button>
+      <div class="side-menu-top">
+            <!-- <button class="logout">Logout</button> -->
+      </div>
+      <div class="side-menu-bottom">
+            <button class="logout" *ngIf="userIsAuthenticated" (click)="onLogout()">Logout</button>
+      </div>
+</div>
