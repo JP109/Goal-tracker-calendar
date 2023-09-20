@@ -122,6 +122,14 @@ To install the project locally:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<!-- USAGE EXAMPLES -->
+## Usage
+
+Create an account, if not already done on the signup page. Then login, and create todos on a particular date by clicking on that date on the calendar.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 
 <!-- ROADMAP -->
 ## Roadmap
