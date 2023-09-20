@@ -28,14 +28,14 @@ export class AuthService {
       createUser(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             // console.log(authData)
-            return this.http.post("http://localhost:3000/api/users/signup", authData)
+            return this.http.post(`https://${process.env.API_KEY}/api/users/signup`, authData)
       }
 
       login(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             console.log(authData)
             this.http
-                  .post("http://localhost:3000/api/users/login", authData)
+                  .post(`https://${process.env.API_KEY}/api/users/login`, authData)
                   .subscribe(res => {
                         console.log(res);
                         const token = res['token'];

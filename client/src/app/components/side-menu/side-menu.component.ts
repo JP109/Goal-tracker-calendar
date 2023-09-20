@@ -23,6 +23,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.isMenuOpen = false;
   }
 
   ngOnDestroy(): void {
@@ -31,6 +32,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
 
   onLogout(){
     this.authService.logout();
+    this.isMenuOpen = false;
   }
 
   toggleMenu($event){
