@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password = "";
   user = {};
   incorrect_credentials_error = false;  
+  goToSignup: boolean = false;
 
   // userIsAuthenticated = false;
   isLoading: boolean = false;
@@ -43,13 +44,42 @@ export class LoginComponent implements OnInit, OnDestroy {
     // this.authListenerSubs.unsubscribe();
   }
 
-  onSubmitForm = (form: NgForm) => {
+  onLogin = (form: NgForm) => {
     console.log('form', form.value);
     if(form.invalid){
       return
     }
     this.isLoading = true;
     this.authService.login(form.value.email, form.value.password);
+  }
+
+  onSignup = (form: NgForm) => {
+    if(form.invalid){
+      return;
+    }else{
+      this.isLoading = true;
+      this.authService.createUser(form.value.username, form.value.password)
+      .subscribe(res => {
+        this.isLoading = false;
+        this.authService.login(form.value.username, form.value.password);
+        console.log('Create user response:', res);
+      }, error => {
+        this.isLoading = false;
+        console.log(error);
+      });
+    }
+  }
+
+  flipCard = () => {
+    this.goToSignup = !this.goToSignup;
+  }
+
+  setFlipClass(){
+    if(this.goToSignup){
+      return 'perspective(600px) rotateY(0deg)'
+    }else{
+      return null
+    }
   }
 
 }

@@ -12,6 +12,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component'; 
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     TodoComponent,
     SignupComponent,
     LoginComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

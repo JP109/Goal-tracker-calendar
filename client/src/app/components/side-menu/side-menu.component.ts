@@ -35,6 +35,7 @@ export class SideMenuComponent implements OnInit, OnDestroy {
 
   toggleMenu($event){
     this.isMenuOpen = !this.isMenuOpen;
+    console.log("IMO", this.isMenuOpen)
   }
 
 }

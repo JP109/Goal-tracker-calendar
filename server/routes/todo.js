@@ -10,10 +10,9 @@ router.post('', checkAuth, (req, res, next)=>{
             title: req.body.title,
             description: req.body.description,
             date: req.body.date.replace(/\s/g,''),
-            checked: req.body.checked
+            checked: req.body.checked,
+            creator: req.userData.userId
       });
-      console.log(req.userData)
-      return res.status(200).json({});
       todo.save().then(createdPost => {
             res.status(201).json({
                   message: 'ToDo added successfully!',
@@ -22,9 +21,10 @@ router.post('', checkAuth, (req, res, next)=>{
       });
 })
 
-router.get("", (req, res, next) => {
+router.get("", checkAuth, (req, res, next) => {
+      console.log('user:', req.userData.userId)
       if(req.query.date){
-            Todo.find({date:req.query.date}).then(documents => {
+            Todo.find({date:req.query.date, creator: req.userData.userId}).then(documents => {
               res.status(200).json({
                 message: "Posts fetched successfully!",
                 todos: documents
@@ -32,7 +32,7 @@ router.get("", (req, res, next) => {
             });           
       }
       else{
-            Todo.find().then(documents => {
+            Todo.find({creator: req.userData.userId}).then(documents => {
                   res.status(200).json({
                     message: "Posts fetched successfully!",
                     todos: documents
@@ -53,9 +53,15 @@ router.put("", checkAuth, (req, res, next) => {
 })
 
 router.delete("", checkAuth, (req, res, next) => {
-      Todo.deleteOne({ _id: req.query.todoId }).then(result => {
-        console.log(result);
-        res.status(200).json({ message: "Todo deleted!" });
+      Todo.deleteOne({ _id: req.query.todoId, creator: req.userData.userId }).then(result => {
+      //   console.log(result);
+      console.log("BBBB", req.userData.userId, result)
+      //   res.status(200).json({ message: "Todo deleted!" });
+            if(result.deletedCount > 0){
+                  res.status(200).json({message: "Deletion successful!"});
+            }else{
+                  res.status(401).json({message: "Not authorized!"});
+            }
       });
 });
 
