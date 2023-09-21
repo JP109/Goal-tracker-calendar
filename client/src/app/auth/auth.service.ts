@@ -28,14 +28,14 @@ export class AuthService {
       createUser(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             // console.log(authData)
-            return this.http.post(`https://${process.env.API_KEY}/api/users/signup`, authData)
+            return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/signup`, authData)
       }
 
       login(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             console.log(authData)
             this.http
-                  .post(`https://${process.env.API_KEY}/api/users/login`, authData)
+                  .post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/login`, authData)
                   .subscribe(res => {
                         console.log(res);
                         const token = res['token'];
