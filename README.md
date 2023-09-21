@@ -1,11 +1,12 @@
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
+<!-- PROJECT LOGO
 <br />
 <div align="center">
   <a href="https://github.com/JP109/goal-tracker">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
+-->
 
   <h3 align="center">Goal-tracker</h3>
 
@@ -15,7 +16,7 @@
     <a href=""><strong>Explore the docs »</strong></a>
     <br /> -->
     <br />
-    <a href="">View Demo</a>
+    <a href="https://goal-tracker-ct9g.onrender.com/">View Demo</a>
     <!-- ·
     <a href="">Report Bug</a>
     ·
@@ -53,7 +54,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/59dd730c-1c5e-4c05-89aa-87b349bf7608)
+![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/5d285ec9-4ef7-4b90-b134-2cf01362b62b)
+
 
 This project started off as a personal need, where I wanted a website where I could track my daily tasks. 
 
@@ -68,7 +72,8 @@ Features:
 ### Built With
 
 * [![Angular][Angular.io]][Angular-url]
-* [![Node][Node.com]][JQuery-url]
+* ![Node][Node.js]
+* ![Express][Express.js]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,3 +188,5 @@ Jai Pawar - [@your_twitter](https://twitter.com/your_username) - email@example.c
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+[Express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
+[Node.js]: 	https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
