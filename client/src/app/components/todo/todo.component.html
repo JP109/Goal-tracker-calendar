@@ -1,6 +1,6 @@
 <div class="option"
       [class.option-disabled]="todoData.disabled || disabled"
-      [class.option-selected]="todoData.checked" 
+      [class.option-checked]="todoData.checked" 
       [ngClass]="customClass"
 >
       <div class="d-flex align-items-center">
@@ -14,10 +14,10 @@
                   (change)="checkTodo($event)"
                   [ngClass]="customClass"
             >
-            <label [for]="todoData.id" class="label" [ngClass]="{'todo-label': !isChecked, 'todo-label-checked': isChecked}">{{todoData.title}} : {{todoData.description}}</label>
+            <label [for]="todoData.id" class="label" class="option-label">{{todoData.title}} : {{todoData.description}}</label>
       </div>
-      <div class="">
+      <div class="pr-5">
             <!-- <button (click)="editTodo(todoData._id)"><i class="fa fa-edit" aria-hidden="true"></i></button> -->
-            <button (click)="deleteTodo(todoData._id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button (click)="deleteTodo(todoData._id)" class="option-delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
       </div>
 </div>

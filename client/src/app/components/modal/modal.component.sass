@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap')
+      
 $primary : #4682A9
 $secondary : #749BC2
 $tertiary : #91C8E4
@@ -16,6 +18,7 @@ $accent : #F6F4EB
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
+      font-family: 'Montserrat', sans-serif
 
       width: 90vw
       height: 80vh
@@ -26,7 +29,7 @@ $accent : #F6F4EB
       z-index: 3
 
       .todo-list
-            overflow-y: scroll
+            overflow-y: auto
             height: 70vh
 
       .todo-list-empty
@@ -53,21 +56,21 @@ $accent : #F6F4EB
                   font-size: 16px
                   font-weight: bold
                   color: #FFFFFF
-                  background-color: #CEA2D7
+                  background-color: $primary
                   border: none
                   border-radius: 3px
                   padding: 10px 40px
                   cursor: pointer
 
-                  &:hover 
-                        background-color: #A348A6
+                  // &:hover 
+                  //       background-color: #A348A6
 
-                  &:disabled
-                        background-color: #A348A6
-                        cursor: not-allowed
+                  // &:disabled
+                  //       background-color: #A348A6
+                  //       cursor: not-allowed
 
-                  &:active 
-                        background-color: #407FC7
+                  // &:active 
+                  //       background-color: #407FC7
 
       .form-row
             input[type='text']
@@ -97,18 +100,18 @@ form
             font-size: 16px
             font-weight: bold
             color: #FFFFFF
-            background-color: #CEA2D7
+            background-color: $primary
             border: none
             border-radius: 3px
             padding: 10px 40px
             cursor: pointer
 
-            &:hover 
-                  background-color: #A348A6
+            // &:hover 
+            //       background-color: #A348A6
 
-            &:disabled
-                  background-color: #A348A6
-                  cursor: not-allowed
+            // &:disabled
+            //       background-color: #A348A6
+            //       cursor: not-allowed
 
-            &:active 
-                  background-color: #407FC7
+            // &:active 
+            //       background-color: #407FC7
