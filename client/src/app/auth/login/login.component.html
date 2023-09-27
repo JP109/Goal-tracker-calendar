@@ -3,12 +3,12 @@
 		<div class="login" [ngClass]="{'flip-login': goToSignup}">
 			<form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
 				<h1>LOGIN</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				<!-- <div class="social-container">
+					<a href="#" class="social"><i class="fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fa-linkedin-in"></i></a>
 				</div>
-				<span>or use your account</span>
+				<span>or use your account</span> -->
 				  <div class="form-row">
 					<!-- <label for="email">Email</label> -->
 					<input 
@@ -22,7 +22,7 @@
 					placeholder="Email"
 					/>
 				  </div>
-				<span *ngIf="!email.valid && email.touched" class="error-message">Please enter a name!</span>
+				<app-error *ngIf="!email.valid && email.touched" class="error-message" [errorMessage]="'Please enter a name!'"></app-error>
 				<div class="form-row">
 					<!-- <label for="password">Password</label> -->
 					<input 
@@ -35,24 +35,25 @@
 					placeholder="Password"
 					/>
 				</div>
-				<span *ngIf="!password.valid && password.touched" class="error-message">Please enter a valid password!</span>
-				<a (click)="flipCard()">Do not have an account? Sign up.</a>
-				<div class="form-row">
+				<span *ngIf="!password.valid && password.touched" class="error-message">Please enter a password!</span>
+
+				<a (click)="flipCard()">Do not have an account? <span class="clickable-link">Sign up.</span></a>
+				<div class="form-row submit-row">
 					<button type="submit" class="ghost" [disabled]="!loginForm.valid">Login</button>
 				</div>
-				<a href="#">Forgot your password?</a>
-				<span *ngIf="incorrect_credentials_error" class="error-message">Incorrect credentials!</span>
+				<!-- <a href="#">Forgot your password?</a> -->
+				<app-error *ngIf="incorrectCredentialsError" class="error-message" [errorMessage]="'Incorrect credentials!'"></app-error>
 		    </form>
 		</div>
 		<div class="signup" [ngStyle]="{'transform': setFlipClass()}" [ngClass]="{'flip-card': goToSignup}">	
 			<form (ngSubmit)="onSignup(signupForm)" #signupForm="ngForm">
 				<h1>SIGN UP</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				<!-- <div class="social-container">
+					<a href="#" class="social"><i class="fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fa-linkedin-in"></i></a>
 				</div>
-				<span>or use your account</span>
+				<span>or use your account</span> -->
 				<div class="form-row">
 				<input 
 					type="email" 
@@ -65,7 +66,7 @@
 					placeholder="Email"
 				/>
 				</div>
-				<span *ngIf="!username.valid && username.touched" class="error-message">Please enter a name!</span>
+				<app-error *ngIf="!username.valid && username.touched" class="error-message" [errorMessage]="'Please enter a name!'"></app-error>
 				<div class="form-row">
 				<input 
 					type="password" 
@@ -77,17 +78,18 @@
 					placeholder="Password"
 				/>
 				</div>
-				<span *ngIf="!password.valid && password.touched" class="error-message">Please enter a valid password!</span>
-				<a (click)="flipCard()">Already have an account? Log in.</a>
-				<div class="form-row">
+				<app-error *ngIf="!password.valid && password.touched" class="error-message" [errorMessage]="'Please enter a password!'"></app-error>
+				<a (click)="flipCard()">Already have an account? <span class="clickable-link">Log in.</span></a>
+				<div class="form-row submit-row">
 					<button type="submit" class="ghost" [disabled]="!signupForm.valid">SIGN UP</button>
 				</div>
-				<span *ngIf="incorrect_credentials_error" class="error-message">Incorrect credentials!</span>
+				<!-- <span *ngIf="signupFailedError" class="error-message">Signup failed!</span> -->
+				<app-error [errorMessage]="'Signup failed!'" *ngIf="signupFailedError"></app-error>
 			</form>
 		</div>
 	</div>
 </div>
-<div class="" *ngIf="isLoading">
+<div class="loading-container" *ngIf="isLoading">
 	<app-loading-spinner></app-loading-spinner>
 </div>
     

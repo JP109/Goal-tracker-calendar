@@ -27,9 +27,13 @@ export class TodoComponent implements OnInit {
   }
 
   checkTodo(event){
+    console.log('AAAAA', event.target.checked)
     if(!this.disabled){
-      this.isChecked = !this.isChecked;
-      this.onCheck.emit({"isChecked": this.isChecked, "todoData": this.todoData});
+      this.isChecked = event.target.checked;
+      // this.isChecked = this.isChecked == true ? false : true;
+      // console.log('ISCHECKED', this.isChecked)
+      // this.onCheck.emit({"isChecked": this.isChecked, "todoData": this.todoData});
+      this.onCheck.emit({"isChecked": event.target.checked, "todoData": this.todoData});
       // this.onCheck.emit(event.target.value);
       // this.selectedOption = event.target.value;
       // this.selectedIndex = this.todoData[event.target.value];

@@ -3,7 +3,7 @@
             {{date.date}}
       </div>
 </ng-container> -->
-<div class="calendar container">
+<div class="calendar container" *ngIf="!isLoading">
       <div class="calendar-controls row d-flex justify-content-center">
             <div class="col-6 d-flex justify-content-between">
                   <button (click)="decreaseCurrentMonth()"><i class="fa fa-angle-left"></i></button>
@@ -12,13 +12,13 @@
             </div>
       </div>
       <div class="row">
-            <div class="col p-0">Monday</div>
-            <div class="col p-0">Tuesday</div>
-            <div class="col p-0">Wednesday</div>
-            <div class="col p-0">Thursday</div>
-            <div class="col p-0">Friday</div>
-            <div class="col p-0">Saturday</div>
-            <div class="col p-0">Sunday</div>
+            <div class="col p-0"><span class="m-1">Monday</span></div>
+            <div class="col p-0"><span class="m-1">Tuesday</span></div>
+            <div class="col p-0"><span class="m-1">Wednesday</span></div>
+            <div class="col p-0"><span class="m-1">Thursday</span></div>
+            <div class="col p-0"><span class="m-1">Friday</span></div>
+            <div class="col p-0"><span class="m-1">Saturday</span></div>
+            <div class="col p-0"><span class="m-1">Sunday</span></div>
       </div>
       <div class="calendar-dates">
             <div *ngFor="let week of displayCalendarData; let i=index" class="calendar-daterow row">
@@ -37,5 +37,8 @@
                   </div>
             </div>
       </div>
+</div>
+<div class="loading-container" *ngIf="isLoading">
+	<app-loading-spinner></app-loading-spinner>
 </div>
 <app-modal #modalRef [date]="selectedDate"></app-modal>

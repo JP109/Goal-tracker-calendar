@@ -13,6 +13,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component'; 
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     SignupComponent,
     LoginComponent,
     SideMenuComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,10 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

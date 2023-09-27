@@ -10,6 +10,7 @@ export class AuthService {
       private authStatusListener = new Subject<boolean>()
       private isAuthenticated: boolean = false;
       private tokenTimer: any;
+      private userId: string;
 
       constructor(private http: HttpClient, private router: Router){}
 
@@ -21,6 +22,10 @@ export class AuthService {
             return this.isAuthenticated;
       }
 
+      getUserId(){
+            return this.userId;
+      }
+
       getAuthStatusListener(){
             return this.authStatusListener.asObservable();
       }
@@ -28,7 +33,17 @@ export class AuthService {
       createUser(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             // console.log(authData)
-            return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/signup`, authData)
+            // return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/signup`, authData)
+            return this.http.post(`http://localhost:3000/api/users/signup`, authData)
+            .subscribe(res => {
+                  // this.isLoading = false;
+                  this.login(email, password);
+                  console.log('Create user response:', res);
+            }, error => {
+                  // this.isLoading = false;
+                  this.authStatusListener.next(false);
+                  console.log(error);
+            });
       }
 
       login(email: string, password: string){
@@ -36,6 +51,7 @@ export class AuthService {
             console.log(authData)
             this.http
                   .post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/login`, authData)
+                  // .post(`http://localhost:3000/api/users/api/users/login`, authData)
                   .subscribe(res => {
                         console.log(res);
                         const token = res['token'];
@@ -44,6 +60,7 @@ export class AuthService {
                               const expiresInDuration = res['expiresIn'];
                               this.setAuthTimer(expiresInDuration);
                               this.isAuthenticated = true; //Auth variable for components that will be initialized(opened) after login.
+                              this.userId = res['userId'];
                               this.authStatusListener.next(true); //Auth variable for components that will be initialized before login(side menu).
                               const now = new Date();
                               const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
@@ -51,6 +68,9 @@ export class AuthService {
                               this.router.navigate(['calendar']);
                         }
                         console.log('this.token', this.token)
+                  }, error => {
+                        this.authStatusListener.next(false);
+                        console.log(error);
                   })
       }
 
@@ -74,6 +94,7 @@ export class AuthService {
             this.isAuthenticated = false;
             this.authStatusListener.next(false);
             clearTimeout(this.tokenTimer);
+            this.clearAuthData();
             this.router.navigate(['login']);
       }
 

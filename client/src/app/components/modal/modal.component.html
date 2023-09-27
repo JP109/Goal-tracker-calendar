@@ -1,37 +1,46 @@
 <ng-container *ngIf="isOpen">
-      <div class="modal-container p-3">
-            <div class="d-flex justify-content-end">
-                  <!-- <span class="button-close" (click)="hideModal()">Close</span> -->
-                  <button class="button-close" (click)="hideModal()"><i class="fa fa-close"></i></button>
-            </div>
-            <div class="row">
-                  <div class="col-8">
-                        <p *ngIf="todoList.length < 1">No todos today.</p>
-                        <div class="todo-list" *ngIf="todoList.length >= 1">
-                              <div class="" *ngFor="let todo of todoList">
-                                    <!-- <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onEdit)="editTodo($event)" (onDelete)="deleteTodo($event)"></app-todo> -->
-                                    <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onDelete)="deleteTodo($event)"></app-todo>
+      <div class="page-mask">
+            <div class="modal-container p-3">
+                  <div class="d-flex justify-content-end">
+                        <!-- <span class="button-close" (click)="hideModal()">Close</span> -->
+                        <button class="button-close" (click)="hideModal()"><i class="fa fa-close"></i></button>
+                  </div>
+                  <div class="row h-100">
+                        <div class="col-8">
+                              <div class="" *ngIf="!isLoading">
+                                    <div class="todo-list-empty"  *ngIf="todoList.length < 1">
+                                          <div class="empty-img">
+                                                <img src="../../../assets/empty-box-3385481-1.svg" alt="Empty box">
+                                          </div>
+                                          <p>No todos today. Create some tasks!</p>
+                                    </div>
+                                    <div class="todo-list" *ngIf="todoList.length >= 1">
+                                          <div class="" *ngFor="let todo of todoList">
+                                                <!-- <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onEdit)="editTodo($event)" (onDelete)="deleteTodo($event)"></app-todo> -->
+                                                <app-todo [todoData]="todo" (onCheck)="checkTodo($event)" (onDelete)="deleteTodo($event)"></app-todo>
+                                          </div>
+                                    </div>
                               </div>
+                              <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
                         </div>
-                        <!-- {{date}} -->
+                        <div class="col-4">
+                              <form (ngSubmit)="addTodo(f)" #f="ngForm">
+                                    <div class="form-row">
+                                          <label for="title">Title</label>
+                                          <input type="text" id="title" name="title" ngModel required #title="ngModel">
+                                    </div>
+                                    <div class="form-row">
+                                          <label for="description">Description</label>
+                                          <textarea type="text" id="description" name="description" ngModel required #description="ngModel"></textarea>
+                                    </div>
+                                    <div class="form-row pt-3">
+                                          <button type="submit" [disabled]="!f.valid">Add Todo</button>
+                                    </div>
+                              </form>
+                        </div>
                   </div>
-                  <div class="col-4">
-                        <form (ngSubmit)="addTodo(f)" #f="ngForm">
-                              <div class="form-row">
-                                    <label for="title">Title</label>
-                                    <input type="text" id="title" name="title" ngModel required #title="ngModel">
-                              </div>
-                              <div class="form-row">
-                                    <label for="description">Description</label>
-                                    <textarea type="text" id="description" name="description" ngModel required #description="ngModel"></textarea>
-                              </div>
-                              <div class="form-row pt-3">
-                                    <button type="submit" [disabled]="!f.valid">Add Todo</button>
-                              </div>
-                        </form>
-                  </div>
+      
+      
             </div>
-
-
       </div>
 </ng-container>

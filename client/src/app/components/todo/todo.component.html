@@ -14,7 +14,7 @@
                   (change)="checkTodo($event)"
                   [ngClass]="customClass"
             >
-            <label [for]="todoData.id" class="todoData-label">{{todoData.title}} : {{todoData.description}}</label>
+            <label [for]="todoData.id" class="label" [ngClass]="{'todo-label': !isChecked, 'todo-label-checked': isChecked}">{{todoData.title}} : {{todoData.description}}</label>
       </div>
       <div class="">
             <!-- <button (click)="editTodo(todoData._id)"><i class="fa fa-edit" aria-hidden="true"></i></button> -->

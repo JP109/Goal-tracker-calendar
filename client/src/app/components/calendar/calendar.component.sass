@@ -1,3 +1,8 @@
+$primary : #4682A9
+$secondary : #749BC2
+$tertiary : #91C8E4
+$accent : #F6F4EB
+      
 .front, .back
       height: 100%
       width: 100%
@@ -11,10 +16,12 @@
 .tile-container
       height: 100%
       // width: 100%
-      background-color: #ffffff
+      // background-color: #ffffff
+      background-color: $accent
       border: 1px solid black
       border-radius: 5px
-      border-color: #CEA2D7
+      // border-color: #CEA2D7
+      border-color: $tertiary
       display: flex
       flex-direction: column
       justify-content: space-between
@@ -37,6 +44,8 @@
 .tile-container:hover
       transform: perspective(600px) rotateX(50deg)
       box-shadow: 0 10px 5px #e3e3e3
+      z-index: 2
+      background-color: rgba($accent, 0.88)
 
 
 .tile-container-empty
@@ -51,14 +60,15 @@
       
 
 .calendar
-      // background-color: #861657
+      background-color: #F6F4EB
       // background-image: linear-gradient(326deg, #861657 0%, #ffa69e 74%)
       
       button
             font-size: 16px
             font-weight: bold
             color: #FFFFFF
-            background-color: #CEA2D7
+            // background-color: #CEA2D7
+            background-color: $secondary
             border: none
             border-radius: 50%
             height: 3rem
@@ -66,7 +76,8 @@
             cursor: pointer
 
             &:hover 
-                  background-color: #A348A6
+                  // background-color: #A348A6
+                  background-color: $primary
 
             &:disabled
                   background-color: #76AEED
@@ -79,7 +90,7 @@
             padding: 30px 0
 
       &-dates
-            height: calc(100vh - 128px)
+            height: calc(100vh - 132px)
             display: flex
             flex-direction: column
 
@@ -88,6 +99,9 @@
       &-daterow
             flex-grow: 1
             border-radius: 30px
+
+.loading-container
+      height: 100vh
 
 @keyframes tilt-tile 
       0%

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs'; 
+import { Observable, Subscription } from 'rxjs'; 
 import { ModalComponent } from '../modal/modal.component';
 import { TodoService } from '../todo.service';
 import { eachDayOfInterval } from 'date-fns'
@@ -46,6 +46,9 @@ export class CalendarComponent implements OnInit {
   ]
 
   selectedDate;
+  isLoading: boolean = false;
+
+  private todosUpdatedListener: Subscription;
 
   displayMonth(){
     this.currentMonthText = this.monthList[this.currentMonth];
@@ -72,15 +75,15 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.calendarData = this.getSortedDatesInRange(new Date(2023,0,1), new Date(2024,0,0));
-    // this.bufferCalendarData = this.calendarData;
-    
-    // this.filterDatesByMonth(this.currentMonth)
+    this.isLoading = true;
+    this.getAllTodosFromDB();
+    this.todosUpdatedListener = this.todoService.getTodosUpdatedListener().subscribe(()=>{
+      this.getAllTodosFromDB();
+    })
+  }
 
-    // this.displayMonth()
-
+  getAllTodosFromDB(){
     this.todoService.getAllTodos().subscribe(allTodos => {
-      // console.log('All todos', allTodos)
       this.allTodos = allTodos['todos'];
       this.calendarData = this.getSortedDatesInRange(new Date(2023,0,1), new Date(2024,0,0));
       this.bufferCalendarData = this.calendarData;
@@ -90,8 +93,11 @@ export class CalendarComponent implements OnInit {
       this.displayMonth()
       console.log('All todos', this.allTodos)
       console.log('DCD', this.displayCalendarData)
+      this.isLoading = false;
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
     })
-
   }
 
   getSortedDatesInRange(startDate: Date, endDate: Date) {
@@ -108,18 +114,9 @@ export class CalendarComponent implements OnInit {
         year: date.getFullYear(), 
         day: date.getDay(), 
         dateString: date.toDateString(),
-        // todos: this.allTodos
         todos: this.allTodos.filter((todo)=>{
           return todo.date == dateStr;
         })
-        // todos: this.allTodos.map((todo)=>{
-        //   if(todo.date === dateStr){
-        //     return todo
-        //   }else{
-        //     return null
-        //   }
-        // })
-          //console.log(todo.date, date.toDateString().replace(/\s/g,''))
       }
       return formattedDate
     })

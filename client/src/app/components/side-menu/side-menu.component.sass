@@ -1,15 +1,36 @@
+$primary : #4682A9
+$secondary : #749BC2
+$tertiary : #91C8E4
+$accent : #F6F4EB
+      
 .menu-button
       height: 2.78125rem
       width: 2.78125rem
       border-radius: 50%
       cursor: pointer
+      background-color: $secondary
+      color: #fff
+      border: none
+
+      position: absolute
+      top: 1rem
+      right: 1rem
+
+.close-button
+      height: 2.78125rem
+      width: 2.78125rem
+      border-radius: 50%
+      cursor: pointer
+      background-color: #fff
+      color: $secondary
+      border: none
 
       position: absolute
       top: 1rem
       right: 1rem
 
 .side-menu
-      background: #ffa69e
+      background: $secondary
       width: 10vw
       height: 100vh
       z-index: 2
@@ -37,22 +58,22 @@
 
             font-size: 16px
             font-weight: bold
-            color: #FFFFFF
-            background-color: #CEA2D7
+            color: $primary
+            background-color: $accent
             border: none
             border-radius: 3px
             padding: 10px 40px
             cursor: pointer
 
-            &:hover 
-                  background-color: #A348A6
+            // &:hover 
+            //       background-color: #A348A6
 
-            &:disabled
-                  background-color: #A348A6
-                  cursor: not-allowed
+            // &:disabled
+            //       background-color: #A348A6
+            //       cursor: not-allowed
 
-            &:active 
-                  background-color: #407FC7
+            // &:active 
+            //       background-color: #407FC7
       
 .side-menu-close
       animation: slide-in 1s

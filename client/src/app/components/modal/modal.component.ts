@@ -15,26 +15,27 @@ export class ModalComponent implements OnInit {
   todoList: any = [];
   // private todosUpdated = new Subject<Todo[]>();
   isOpen: boolean = false;
+  isLoading: boolean = false;
+  dateStringTrimmed: string;
 
   constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
-    // this.todoList = this.todoService.getTodos();
-
-
-    // this.todoService.getTodos(this.date).subscribe(data => {
-    //   this.todoList = data['todos'];
-    // })
   }
 
   showModal(currentDate){
     this.todoList = [];
     this.isOpen = true;
-    let dateStringTrimmed = currentDate.replace(/\s/g,'')
-    console.log('Current date', this.date, dateStringTrimmed)
+    this.dateStringTrimmed = currentDate.replace(/\s/g,'')
+    console.log('Current date', this.date, this.dateStringTrimmed)
 
-    this.todoService.getTodos(dateStringTrimmed).subscribe(data => {
+    this.isLoading = true;
+    this.todoService.getTodos(this.dateStringTrimmed).subscribe(data => {
       this.todoList = data['todos'];
+      this.isLoading = false;
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
     })
   }
 
@@ -53,36 +54,60 @@ export class ModalComponent implements OnInit {
     }
     console.log(todo)
     // this.todoList.push(todo);
+    this.isLoading = true;
     this.todoService.addTodo(todo).subscribe(responseData=>{
         console.log('POST response', responseData);
         const id = responseData['todoId'];
         todo.id = id;
-        this.todoList.push(todo);
-        // this.todosUpdated.next([...this.todoList]);
+        // this.todoList.push(todo);
+        // this.isLoading = false;
+        this.todoService.getTodos(this.dateStringTrimmed).subscribe(data => {
+          this.todoList = data['todos'];
+          this.isLoading = false;
+        }, error => {
+          console.log(error);
+          this.isLoading = false;
+        })
+        // this.todosUpdated.next();
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
     });
   }
 
   checkTodo(todo){
     console.log('todo in checkTodo:', todo)
+    this.isLoading = true;
     this.todoService.checkTodo(todo.isChecked, todo.todoData._id).subscribe(data=>{
       console.log(data)
+      // this.isLoading = false;
+      
+      // this.isLoading = true;
+      this.todoService.getTodos(this.dateStringTrimmed).subscribe(data => {
+        this.todoList = data['todos'];
+        this.isLoading = false;
+      }, error => {
+        console.log(error);
+        this.isLoading = false;
+      })
+    }, error => {
+      console.log(error);
+      this.isLoading = false;
     });
   }
 
-  // editTodo(todoId){
-  //   console.log('Edit todo:', todoId)
-  //   this.todoService.editTodo().subscribe(responseData=>{
-  //     console.log('PUT response', responseData);
-  //   })
-  // }
-
   deleteTodo(todoId){
     console.log('Delete todo:', todoId)
+    this.isLoading = true;
     this.todoService.deleteTodo(todoId).subscribe(data => {
       console.log(this.todoList)
       this.todoList = this.todoList.filter(todo => todo._id !== todoId);
+      this.isLoading = false;
       // this.todoList = updatedTodoList;
       // this.postsUpdated.next([...this.posts]);
+    }, error => {
+      this.isLoading = false;
+      console.log(error);
     })
   }
 

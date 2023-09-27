@@ -19,13 +19,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   userName = "";
   password = "";
   user = {};
-  incorrect_credentials_error = false;  
+  incorrectCredentialsError = false;  
   goToSignup: boolean = false;
 
-  // userIsAuthenticated = false;
+  userIsAuthenticated = false;
+  signupFailedError: boolean = false;
   isLoading: boolean = false;
 
-  // private authListenerSubs: Subscription;
+  private authListenerSubs: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -33,15 +34,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit(): void {
-    // this.authListenerSubs = this.authService
-    // .getAuthStatusListener()
-    // .subscribe(isAuthenticated => {
-    //   this.userIsAuthenticated = isAuthenticated; //Not really required for now
-    // });
+    this.authListenerSubs = this.authService
+    .getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.isLoading = isAuthenticated;
+      this.signupFailedError = true;
+      this.incorrectCredentialsError = true;
+    });
   }
 
   ngOnDestroy(): void {
-    // this.authListenerSubs.unsubscribe();
+    this.authListenerSubs.unsubscribe();
   }
 
   onLogin = (form: NgForm) => {
@@ -58,20 +62,22 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }else{
       this.isLoading = true;
-      this.authService.createUser(form.value.username, form.value.password)
-      .subscribe(res => {
-        this.isLoading = false;
-        this.authService.login(form.value.username, form.value.password);
-        console.log('Create user response:', res);
-      }, error => {
-        this.isLoading = false;
-        console.log(error);
-      });
+      this.authService.createUser(form.value.username, form.value.password);
+      // .subscribe(res => {
+      //   this.isLoading = false;
+      //   this.authService.login(form.value.username, form.value.password);
+      //   console.log('Create user response:', res);
+      // }, error => {
+      //   this.isLoading = false;
+      //   console.log(error);
+      // });
     }
   }
 
   flipCard = () => {
     this.goToSignup = !this.goToSignup;
+    this.incorrectCredentialsError = false;
+    this.signupFailedError = false;
   }
 
   setFlipClass(){

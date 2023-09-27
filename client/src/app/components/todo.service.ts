@@ -7,17 +7,16 @@ import { AuthService } from "../auth/auth.service";
 
 @Injectable({providedIn: 'root'})
 export class TodoService{
+      private todosUpdatedListener = new Subject<Todo[]>();
 
       constructor(private http:HttpClient, private authService:AuthService){}
 
+      getTodosUpdatedListener(){
+            return this.todosUpdatedListener.asObservable();
+      }
+
       getTodos = (date) => {
-            // return [...this.todoList]
             console.log('getTodos called', date);
-            // let queryParams = {"date": date};
-            // let queryParams = new HttpParams().append("date",date);
-            // const options = date ?
-            // { params: new HttpParams().set('date', date) } : {};
-            // return this.http.get("http://localhost:3000/api/todos", {params: queryParams})
             const params = new HttpParams()
                   .set('date', date);
             return this.http.get(`https://node-express-hosted-server-for-todo.onrender.com/api/todos`,{params: params})
@@ -28,27 +27,24 @@ export class TodoService{
       }
 
       addTodo = (todoObject) => {
+            this.todosUpdatedListener.next();
             return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/todos`, todoObject)
       }
 
       editTodo = (todoObject) => {
+            this.todosUpdatedListener.next();
             return this.http.put(`https://node-express-hosted-server-for-todo.onrender.com/api/todos`, todoObject)
       }
 
       checkTodo = (isChecked, id) => {
-            // const checkParams = new HttpParams()
-            //       .set('todoObject', 'BBBB');
-            const body = { title: 'Angular PUT Request Example'};
+            const body = { title: 'PUT Request Example'};
+            console.log('isChecked', isChecked)
             return this.http.put(`https://node-express-hosted-server-for-todo.onrender.com/api/todos?id=${id}&checked=${isChecked}`, body)
+            // return this.http.put(`https://node-express-hosted-server-for-todo.onrender.com/api/todos?id=${id}&checked=${isChecked}`, isChecked)
       }
 
       deleteTodo(todoId: string) {
-            // this.http.delete("http://localhost:3000/api/todos/" + postId)
-            //       .subscribe(() => {
-            //       const updatedPosts = this.posts.filter(post => post.id !== postId);
-            //       this.posts = updatedPosts;
-            //       this.postsUpdated.next([...this.posts]);
-            // });
+            this.todosUpdatedListener.next();
             const params = new HttpParams()
                   .set('todoId', todoId);
             return this.http.delete(`https://node-express-hosted-server-for-todo.onrender.com/api/todos`, {params: params})
