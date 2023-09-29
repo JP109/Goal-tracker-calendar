@@ -33,8 +33,8 @@ export class AuthService {
       createUser(email: string, password: string){
             const authData: AuthData = {email: email, password: password};
             // console.log(authData)
-            // return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/signup`, authData)
-            return this.http.post(`http://localhost:3000/api/users/signup`, authData)
+            return this.http.post(`https://node-express-hosted-server-for-todo.onrender.com/api/users/signup`, authData)
+            // return this.http.post(`http://localhost:3000/api/users/signup`, authData)
             .subscribe(res => {
                   // this.isLoading = false;
                   this.login(email, password);
