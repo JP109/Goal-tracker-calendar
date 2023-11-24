@@ -17,6 +17,10 @@
     <br /> -->
     <br />
     <a href="https://goal-tracker-ct9g.onrender.com/">View Demo</a>
+    <br />
+    Test username: user1
+    <br />
+    Test password: p
     <!-- ·
     <a href="">Report Bug</a>
     ·
@@ -55,8 +59,9 @@
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/59dd730c-1c5e-4c05-89aa-87b349bf7608)
-![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/5d285ec9-4ef7-4b90-b134-2cf01362b62b)
+![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/1abbe047-a78f-4094-860c-ae7e116d0dca)
+![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/98d1aa49-f198-4dd4-8287-e770b3c241d5)
+![image](https://github.com/JP109/Goal-tracker-calendar/assets/60847674/c6aa3d50-ab2c-4ef1-b8fb-189d5ce6c32f)
 
 
 This project started off as a personal need, where I wanted a website where I could track my daily tasks. 
